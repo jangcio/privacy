@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shopping Helper | Naver Shopping comparison assistant</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23008c95'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white'%3ESH%3C/text%3E%3C/svg%3E"
+    />
+    <meta
+      name="description"
+      content="Shopping Helper helps Naver Shopping and SmartStore shoppers compare similar AliExpress product candidates with clear affiliate disclosure."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4fafb;
+        --surface: #ffffff;
+        --surface-soft: #eaf4f5;
+        --text: #101820;
+        --muted: #52616c;
+        --line: #cfdde1;
+        --primary: #008c95;
+        --primary-dark: #00656c;
+        --warning: #8a5a00;
+        --warning-bg: #fff6dd;
+        --shadow: 0 20px 60px rgba(16, 24, 32, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: rgba(244, 250, 251, 0.88);
+        backdrop-filter: blur(14px);
+      }
+
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 64px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        display: inline-grid;
+        width: 32px;
+        height: 32px;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--primary);
+        color: #ffffff;
+        font-weight: 900;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+      }
+
+      .hero {
+        padding: 72px 0 46px;
+        text-align: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 auto 20px;
+        padding: 7px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.78);
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0 auto;
+        font-size: clamp(40px, 7vw, 76px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .accent {
+        color: var(--primary);
+      }
+
+      .hero-copy {
+        max-width: 680px;
+        margin: 22px auto 0;
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 18px;
+        border: 1px solid var(--primary);
+        border-radius: 8px;
+        background: var(--primary);
+        color: #ffffff;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        border-color: var(--line);
+        background: var(--surface);
+        color: var(--text);
+      }
+
+      .site-url {
+        margin: 18px auto 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .visual {
+        margin: 48px auto 0;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .visual img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .section {
+        padding: 72px 0;
+        border-top: 1px solid var(--line);
+      }
+
+      .section-heading {
+        max-width: 680px;
+        margin-bottom: 34px;
+      }
+
+      .section-label {
+        margin-bottom: 8px;
+        color: var(--primary-dark);
+        font-size: 13px;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        font-size: clamp(28px, 4vw, 42px);
+        line-height: 1.1;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        color: var(--muted);
+        font-size: 17px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .grid.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        min-height: 100%;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+      }
+
+      .card h3 {
+        margin-bottom: 8px;
+        font-size: 18px;
+      }
+
+      .card p,
+      .card li {
+        color: var(--muted);
+      }
+
+      .steps {
+        counter-reset: steps;
+      }
+
+      .step {
+        position: relative;
+      }
+
+      .step::before {
+        counter-increment: steps;
+        content: counter(steps);
+        display: inline-grid;
+        width: 30px;
+        height: 30px;
+        margin-bottom: 18px;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--surface-soft);
+        color: var(--primary-dark);
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .notice {
+        border: 1px solid #f0d38d;
+        background: var(--warning-bg);
+        color: var(--warning);
+      }
+
+      .plain-list {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .plain-list li + li {
+        margin-top: 8px;
+      }
+
+      .footer {
+        padding: 34px 0 44px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .footer-inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      @media (max-width: 820px) {
+        .nav-links {
+          gap: 12px;
+          font-size: 13px;
+        }
+
+        .hero {
+          padding-top: 46px;
+        }
+
+        .grid.three,
+        .grid.two {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .shell {
+          width: min(100% - 28px, 1120px);
+        }
+
+        .nav-inner {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 10px;
+          padding: 14px 0;
+        }
+
+        .hero-actions {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="shell nav-inner">
+        <a class="brand" href="#top" aria-label="Shopping Helper home">
+          <span class="brand-mark" aria-hidden="true">SH</span>
+          <span>Shopping Helper</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#how">How it works</a>
+          <a href="#trust">Trust</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="shell">
+          <p class="eyebrow">Chrome extension for comparison shopping</p>
+          <h1>Shopping Helper</h1>
+          <p class="hero-copy">
+            네이버 쇼핑과 스마트스토어 상품 페이지에서 AliExpress 유사 상품
+            후보를 보여주는 비교 도우미입니다. 가격, 옵션, 배송 기간을 직접
+            비교하고 원할 때만 이동하세요.
+          </p>
+          <div class="hero-actions" aria-label="Important links">
+            <a class="button" href="#how">작동 방식 보기</a>
+            <a class="button secondary" href="privacy.html">개인정보 안내</a>
+          </div>
+          <p class="site-url">
+            Suggested site URL:
+            <strong>https://jangcio.github.io/privacy/shopping-helper/</strong>
+          </p>
+          <figure class="visual">
+            <img
+              src="assets/hero.png"
+              alt="Shopping Helper showing AliExpress comparison candidates on a Naver-style product page"
+              width="1280"
+              height="900"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section id="how" class="section">
+        <div class="shell">
+          <div class="section-heading">
+            <p class="section-label">How it works</p>
+            <h2>쇼핑하던 흐름은 그대로 두고, 비교 후보만 더합니다.</h2>
+            <p class="lead">
+              지원되는 상품 페이지를 열면 상품명, 이미지, 가격 같은 최소 정보로
+              후보를 찾고, 표시 가능한 결과가 있을 때만 작은 카드로 보여줍니다.
+            </p>
+          </div>
+          <div class="grid three steps">
+            <article class="card step">
+              <h3>지원 상품 페이지 감지</h3>
+              <p>
+                네이버 쇼핑, 스마트스토어, 브랜드스토어의 상품 상세 페이지에서만
+                동작하도록 설계했습니다.
+              </p>
+            </article>
+            <article class="card step">
+              <h3>유사 상품 후보 표시</h3>
+              <p>
+                AliExpress에서 같은 상품으로 단정하지 않고, 비교 가능한 유사
+                상품 후보로 표시합니다.
+              </p>
+            </article>
+            <article class="card step">
+              <h3>사용자 클릭 후 이동</h3>
+              <p>
+                외부 링크는 사용자가 직접 후보 보기 버튼을 누를 때만 새 탭으로
+                열립니다.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="trust" class="section">
+        <div class="shell">
+          <div class="section-heading">
+            <p class="section-label">Trust and disclosure</p>
+            <h2>자동 이동 없이, 제휴 여부를 분명히 고지합니다.</h2>
+            <p class="lead">
+              Shopping Helper는 사용자의 구매 판단을 대신하지 않습니다. 상품
+              동일 여부, 옵션, 배송비, 관부가세, 반품 조건은 사용자가 판매
+              페이지에서 직접 확인해야 합니다.
+            </p>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>What Shopping Helper does</h3>
+              <ul class="plain-list">
+                <li>상품 페이지에서 비교에 필요한 최소 상품 정보를 읽습니다.</li>
+                <li>표시 기준을 통과한 AliExpress 후보가 있을 때만 카드를 보여줍니다.</li>
+                <li>후보 링크 근처에 제휴 링크 가능성을 고지합니다.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>What Shopping Helper does not do</h3>
+              <ul class="plain-list">
+                <li>사용자를 자동으로 AliExpress로 이동시키지 않습니다.</li>
+                <li>기존 페이지 URL을 제휴 링크로 바꾸지 않습니다.</li>
+                <li>구매 내역, 결제 정보, 장바구니 정보를 수집하지 않습니다.</li>
+              </ul>
+            </article>
+          </div>
+          <article class="card notice" style="margin-top: 16px">
+            <h3>Affiliate disclosure</h3>
+            <p>
+              Some outbound product links may be affiliate links. If a user
+              clicks a product candidate and purchases through the destination
+              marketplace, the operator may receive a commission at no
+              additional cost to the user.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell">
+          <div class="section-heading">
+            <p class="section-label">Recommended submission values</p>
+            <h2>제휴 신청 폼에는 이렇게 입력하세요.</h2>
+          </div>
+          <div class="grid two">
+            <article class="card">
+              <h3>Site name</h3>
+              <p><strong>Shopping Helper</strong></p>
+            </article>
+            <article class="card">
+              <h3>Site URL</h3>
+              <p>
+                <strong>https://jangcio.github.io/privacy/shopping-helper/</strong>
+              </p>
+              <p>
+                이 페이지는 기존 개인정보 정책 배포용
+                <strong>jangcio/privacy</strong> GitHub Pages 저장소에서
+                배포됩니다.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <span>Shopping Helper</span>
+        <div class="footer-links">
+          <a href="privacy.html">Privacy</a>
+          <a href="https://github.com/proke03/RN-projects">GitHub repository</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

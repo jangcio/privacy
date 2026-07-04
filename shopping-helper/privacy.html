@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shopping Helper Privacy Notice</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23008c95'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial,sans-serif' font-size='24' font-weight='700' fill='white'%3ESH%3C/text%3E%3C/svg%3E"
+    />
+    <meta
+      name="description"
+      content="Privacy notice for the Shopping Helper Chrome extension."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4fafb;
+        --surface: #ffffff;
+        --text: #101820;
+        --muted: #52616c;
+        --line: #cfdde1;
+        --primary: #008c95;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.7;
+      }
+
+      a {
+        color: var(--primary);
+        font-weight: 700;
+      }
+
+      .shell {
+        width: min(860px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      header {
+        border-bottom: 1px solid var(--line);
+        background: rgba(244, 250, 251, 0.9);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 64px;
+      }
+
+      .brand {
+        color: var(--text);
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      main {
+        padding: 64px 0 80px;
+      }
+
+      h1 {
+        margin: 0 0 14px;
+        font-size: clamp(36px, 6vw, 58px);
+        line-height: 1;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        margin-bottom: 34px;
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      section {
+        margin-top: 18px;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--surface);
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 22px;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      li + li {
+        margin-top: 8px;
+      }
+
+      footer {
+        padding: 28px 0 42px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="shell nav">
+        <a class="brand" href="index.html">Shopping Helper</a>
+        <a href="index.html">Landing page</a>
+      </div>
+    </header>
+
+    <main class="shell">
+      <h1>Privacy Notice</h1>
+      <p class="lead">
+        Shopping Helper is a Chrome extension that helps users compare product
+        candidates from supported shopping pages. This notice summarizes the
+        data handled by the extension.
+      </p>
+
+      <section>
+        <h2>Data used for matching</h2>
+        <ul>
+          <li>Current product page URL from supported shopping domains.</li>
+          <li>Product title and optional product metadata such as price text, image URL, brand, and model name.</li>
+          <li>Candidate matching results returned by the Shopping Helper backend.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Purpose</h2>
+        <p>
+          The extension uses product page data only to detect supported product
+          pages, request similar product candidates, show comparison cards, and
+          open an outbound product link when the user chooses to do so.
+        </p>
+      </section>
+
+      <section>
+        <h2>Local storage</h2>
+        <p>
+          Shopping Helper may store the last detected product, the last
+          candidate result, and the user's enabled/disabled setting in Chrome
+          local storage so the toolbar popup and options page can reflect the
+          current state.
+        </p>
+      </section>
+
+      <section>
+        <h2>Data not collected</h2>
+        <ul>
+          <li>Shopping Helper does not collect payment information.</li>
+          <li>Shopping Helper does not collect purchase history.</li>
+          <li>Shopping Helper does not read or write marketplace cookies.</li>
+          <li>Shopping Helper does not automatically redirect users.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Affiliate links</h2>
+        <p>
+          Some outbound links may be affiliate links. Affiliate links are opened
+          only after the user clicks a product candidate.
+        </p>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <p>
+          Project repository:
+          <a href="https://github.com/proke03/RN-projects">github.com/proke03/RN-projects</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">Last updated: 2026-07-04</div>
+    </footer>
+  </body>
+</html>
